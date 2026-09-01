@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a2d70">
+  <meta name="description" content="Authorized PDF watermark cleanup with conservative object-level detection.">
+  <title>Authorized PDF Watermark Cleanup</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="top-rule"><span></span></div>
+  <div class="header-inner">
+    <img src="assets/logo.png" class="brand-logo" alt="Almate.edu.lk">
+    <div>
+      <p class="eyebrow">AUTHORIZED PDF RESTORATION</p>
+      <h1>Watermark Cleanup Studio</h1>
+      <p class="lead">Detect allowlisted watermark objects, review the candidates, remove only the matched PDF text objects, and verify the cleaned file before download.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <div class="section-title">
+      <div><span class="step">01</span><div><h2>Upload PDF</h2><p>Your original upload stays untouched in the browser.</p></div></div>
+      <span id="statusPill" class="status-pill idle">Waiting for PDF</span>
+    </div>
+    <label id="dropZone" class="drop-zone" for="pdfFile">
+      <input id="pdfFile" type="file" accept="application/pdf,.pdf" hidden>
+      <div class="upload-icon">PDF</div>
+      <div class="drop-copy"><strong>Select your authorized PDF</strong><span>Drag & drop or browse. Processing happens locally; there is no upload server.</span></div>
+      <button id="browseBtn" type="button" class="browse-btn">Browse</button>
+    </label>
+    <div id="fileMeta" class="file-meta hidden"></div>
+    <div id="progressWrap" class="progress-wrap hidden"><div class="progress-row"><span id="progressLabel">Preparing…</span><strong id="progressPercent">0%</strong></div><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div></div>
+    <div id="errorBox" class="error-box hidden" role="alert"></div>
+  </section>
+
+  <section class="card">
+    <div class="section-title">
+      <div><span class="step">02</span><div><h2>Detect & review</h2><p>The engine checks page streams and nested Form XObjects without rasterizing the document.</p></div></div>
+    </div>
+    <div class="brand-strip" aria-label="Configured allowlist">
+      <span>TamilGuru.lk</span><span>PastPapers.Wiki</span><span>e-kalvi.com</span><span>AlevelAPI.com</span><span>GuruPiyasa.guru</span>
+    </div>
+    <div id="emptyState" class="empty-state">Upload a PDF to begin.</div>
+    <div id="summary" class="summary-grid hidden">
+      <div class="stat"><span>Pages</span><strong id="statPages">0</strong></div>
+      <div class="stat found"><span>Affected pages</span><strong id="statAffected">0</strong></div>
+      <div class="stat found"><span>Matched objects</span><strong id="statHits">0</strong></div>
+      <div class="stat"><span>Output size</span><strong id="statSize">—</strong></div>
+    </div>
+    <div id="brandSummary" class="brand-summary hidden"></div>
+    <div id="previewBox" class="preview-box hidden">
+      <div class="preview-head"><div><strong id="previewTitle">Detected watermark objects</strong><p>Only high-confidence allowlisted objects are eligible for removal.</p></div><span class="safe-tag">SAFE MODE</span></div>
+      <div id="previewBody"></div>
+    </div>
+    <div id="pageList" class="page-list hidden"></div>
+    <div id="verifyBox" class="verify-box hidden"><strong>Integrity check passed</strong><span id="verifyText"></span></div>
+    <div id="resultBox" class="result-box hidden"><div><strong>Cleaned PDF is ready.</strong><span id="resultText"></span></div><button id="downloadBtn" class="download-btn" type="button" disabled>Download PDF</button></div>
+    <button id="resetBtn" class="reset-btn" type="button">Use another PDF</button>
+  </section>
+
+  <section class="info-grid">
+    <article class="info-card"><h3>Questions protected</h3><p>The remover does not erase page pixels and does not delete arbitrary text. A mixed TJ text array is left untouched instead of risking nearby question content.</p></article>
+    <article class="info-card"><h3>More PDF structures</h3><p>Detection walks page content streams and nested Form XObjects, which fixes a common case where the watermark is stored outside the direct page stream.</p></article>
+    <article class="info-card"><h3>Verification required</h3><p>The cleaned PDF is rescanned. Download stays blocked if an allowlisted signature remains or the page count changes.</p></article>
+  </section>
+
+  <section class="notice"><strong>Authorized use only.</strong> Remove watermarks only from PDFs you own or are explicitly authorized to modify. If a watermark is baked into a scanned image, this tool intentionally leaves the image untouched.</section>
+</main>
+<footer class="site-footer"><strong>Almate.edu.lk</strong><span>Authorized archive cleanup utility · v2.0</span></footer>
+
+<script>
+  window.pdfjsReady = import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs').then((m)=>{ window.pdfjsLib=m; window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs'; return m; }).catch((e)=>{ console.warn('PDF.js unavailable; structural scan remains available.'); return null; });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
